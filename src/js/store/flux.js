@@ -39,6 +39,8 @@ const getState = ({ getStore, setStore }) => {
 					.catch(error => console.log(error));
 			},
 			updateContact: (contactId, updateData) => {
+				const agendaSlug = "cesar86";
+				updateData.agenda_slug = "cesar86";
 				fetch(`https://playground.4geeks.com/apis/fake/contact/${contactId}`, {
 					method: "PUT",
 					headers: {
@@ -48,8 +50,8 @@ const getState = ({ getStore, setStore }) => {
 				})
 					.then(response => {
 						console.log(response.status);
-						if (response.status == 201) {
-							getActions().getAllAgenda();
+						if (response.ok) {
+							setStore(prevState => ({ ...prevState, contacts: [...prevState.contacts, updateData] }));
 						}
 						return response.json();
 					})

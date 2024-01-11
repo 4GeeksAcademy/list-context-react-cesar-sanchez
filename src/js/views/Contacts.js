@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { ContactCard } from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
+import { ModalUpdate } from "../component/ModalUpdate.js";
 
 export const Contacts = () => {
 	const { store, actions } = useContext(Context);
@@ -57,6 +58,16 @@ export const Contacts = () => {
 				</div>
 			</div>
 			<Modal show={state.showModal} id={state.contactIdToDelete} onClose={() => setState({ showModal: false })} />
+			<ModalUpdate
+				show={state.showModalUpdate}
+				id={state.contactId}
+				full_name={state.full_name}
+				phone={state.phone}
+				address={state.address}
+				email={state.email}
+				onUpdate={updatedContact => actions.updateContact(state.contactIdToUpdate, updatedContact)}
+				onClose={() => setState({ showModalUpdate: false })}
+			/>
 		</div>
 	);
 };
